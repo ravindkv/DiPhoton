@@ -26,7 +26,10 @@ void ppToaaDelphe::Loop_Delphe()
   cout << "============================="<<endl;
   
   ofstream fileMgg;
-  fileMgg.open("Mgg_noCut_ppToaaDelphe_400K_PY6Q.dat");
+  fileMgg.open("Mgg_noCut_ppToaaDelphe_400K_PY6Q.dat")
+  //fileMgg.open("Mgg_Ht50_ppToaaDelphe_400K_PY6Q.dat")
+  //fileMgg.open("Mgg_C2p5_ppToaaDelphe_400K_PY6Q.dat")
+  //fileMgg.open("Mgg_EtCuts_ggToaaDelphe_100K_PY8.dat")
  
   //Loop over number of events (nentries)   
   for (Long64_t nentry=0; nentry<nentries; nentry++) 
@@ -61,9 +64,9 @@ void ppToaaDelphe::Loop_Delphe()
       Float_t cutC = sqrt(pow(Px1+Px2, 2)+pow(Py1+Py2, 2)+pow(Pz1+Pz2, 2));
 
       if(Mgg >= 200){    
+      //if(Mgg >= 200 && Ht >= 50){          
       //if(Mgg >= 200 && cutC <= 2.5*Mgg){    
       //if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
-      //if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200 && Ht >= 50){          
         h->Fill(Mgg); // Create a histogram of Mgg
         fileMgg<<Mgg<<"\n";
       }

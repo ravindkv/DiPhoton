@@ -5,6 +5,9 @@
 #include <TCanvas.h>
 #include <math.h>      
 
+#include <iostream>
+#include <fstream>
+
 void ggToaaDelphe::Loop_Delphe()
 {
   //////////////////////////////////////////////////////////// 
@@ -23,7 +26,13 @@ void ggToaaDelphe::Loop_Delphe()
   cout << "============================="<<endl;
   cout << "  Total Events =  " << nentries <<endl;
   cout << "============================="<<endl;
- 
+  
+  ofstream fileMgg;
+  fileMgg.open("Mgg_noCut_ggToaaDelphe_100K_PY8.dat")
+  //fileMgg.open("Mgg_Ht50_ggToaaDelphe_100K_PY8.dat");
+  //fileMgg.open("Mgg_C2p5_ggToaaDelphe_100K_PY8.dat")
+  //fileMgg.open("Mgg_EtCuts_ggToaaDelphe_100K_PY8.dat")
+  
   //Loop over number of events (nentries)   
   for (Long64_t nentry=0; nentry<nentries; nentry++) 
   {
@@ -41,20 +50,29 @@ void ggToaaDelphe::Loop_Delphe()
       Float_t diff_Phi = cos(Photon_Phi[0]-Photon_Phi[1]);
       //https://en.wikipedia.org/wiki/Invariant_mass
       Mgg = sqrt(abs(2*(prod_PT*(diff_Eta - diff_Phi))));
-      
       for(int j=0; j<Jet_size; j++){
         Ht = Ht+ Jet_PT[j];
         //cout<<"Ht = "<<Ht<<endl;
       }
-      //Apply ATLAS and Ht cuts
-      if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
-      //if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200i && Ht >= 50){    
+      //C-cut
+      Float_t Px1 = Photon_PT[0]* cos(Photon_Phi[0]);
+      Float_t Py1 = Photon_PT[0]* sin(Photon_Phi[0]);
+      Float_t Pz1 = Photon_PT[0]* sinh(Photon_Eta[0]);
+      Float_t Px2 = Photon_PT[1]* cos(Photon_Phi[1]);
+      Float_t Py2 = Photon_PT[1]* sin(Photon_Phi[1]);
+      Float_t Pz2 = Photon_PT[1]* sinh(Photon_Eta[1]);
+      Float_t cutC = sqrt(pow(Px1+Px2, 2)+pow(Py1+Py2, 2)+pow(Pz1+Pz2, 2));
+
+      if(Mgg >= 200){    
+      //if(Mgg >= 200 && Ht >= 50){    
+      //if(Mgg >= 200 && cutC <= 2.5*Mgg){    
+      //if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
         h->Fill(Mgg); // Create a histogram of Mgg
+        fileMgg<<Mgg<<"\n";
       }
     }
-  
   }
-      
+  fileMgg.close();
   //////////////////////////////////////////////////////////// 
   //
   // Section - 2 : Read the binCenter & binContent of histo //

@@ -16,19 +16,32 @@ void ppggToaaDelphe()
   // Section - 1 : create histograms for pp and gg process  //
   //                                                        // 
   ////////////////////////////////////////////////////////////
-  
-  ifstream ggToaaAllCut("ggToaaDelphe_100K_PY8_C2p5.dat");
-  ifstream ppToaaAllCut("ppToaaDelphe_400K_PY6Q_C2p5.dat");
  
+  // No cut: Mgg >= 200
+  ifstream ggToaaAllCut("Mgg_noCut_ggToaaDelphe_100K_PY8.dat");
+  ifstream ppToaaAllCut("Mgg_noCut_ppToaaDelphe_400K_PY6Q.dat");
+  
+  // Ht cut: Mgg >= 200 && Ht >= 50
+  ifstream ggToaaAllCut("Mgg_Ht50_ggToaaDelphe_100K_PY8.dat");
+  ifstream ppToaaAllCut("Mgg_Ht50_ppToaaDelphe_400K_PY6Q.dat");
+  
+  // C-cut : Mgg >= 200 && cutC <= 2.5*Mgg
+  ifstream ggToaaAllCut("Mgg_C2p5_ggToaaDelphe_100K_PY8.dat");
+  ifstream ppToaaAllCut("Mgg_C2p5_ppToaaDelphe_400K_PY6Q.dat");
+  
+  // atlas : PT1 >= 0.4*Mgg && Pt2[1]>= 0.3*Mgg && Mgg >= 200
+  ifstream ggToaaAllCut("Mgg_EtCuts_ggToaaDelphe_100K_PY8.dat");
+  ifstream ppToaaAllCut("Mgg_EtCuts_ppToaaDelphe_400K_PY6Q.dat");
+  
   // Create histo of Mgg, for gg
   const int binN = 20;
   int xmin = 200;
   int xmax = 1000;
   TH1F* hgg = new TH1F("hgg", "Delphe: g g -> a a [QCD], 100K", binN, xmin,xmax);
   int NggToaaAllCut = 0;
-  float ggPt1, ggMgg, ggPt2;
+  float ggMgg;
   while(true){
-    ggToaaAllCut >> ggPt1 >> ggMgg >> ggPt2; 
+    ggToaaAllCut >> ggMgg; 
     hgg->Fill(ggMgg);
     //cout<<ggPt1<<"\t"<<ggMgg<<"\t"<<ggPt2<<endl;
     if( ggToaaAllCut.eof() ) break;
@@ -41,9 +54,9 @@ void ppggToaaDelphe()
   int xmax = 1000;
   TH1F* hpp = new TH1F("hpp", "Delphe: p p -> a a [QCD], 400K", binN, xmin,xmax);
   int NppToaaAllCut = 0;
-  float ppPt1, ppMgg, ppPt2;
+  float ppMgg;
   while(true){
-    ppToaaAllCut >> ppPt1 >> ppMgg >> ppPt2; 
+    ppToaaAllCut >>ppMgg; 
     hpp->Fill(ppMgg);
     //cout<<ppPt1<<"\t"<<ppMgg<<"\t"<<ppPt2<<endl;
     if( ppToaaAllCut.eof() ) break;
@@ -61,7 +74,6 @@ void ppggToaaDelphe()
   hpp->Draw();
   //hpp->GetYaxis()->SetTitle("Events/40GeV");
   hpp->GetXaxis()->SetTitle("M_{gg} (GeV)");
-  
 
   //////////////////////////////////////////////////////////// 
   //                                                        //
@@ -70,9 +82,9 @@ void ppggToaaDelphe()
   ////////////////////////////////////////////////////////////
   
   //Get the statistics from gg and pp
-  int NppToaa = 4000000;
+  int NppToaa = 400000;
   float SppToaa = 102.96;
-  int NppToaaPythia =  2388934;
+  int NppToaaPythia =  400000;
   float SppToaaPythia = SppToaa*NppToaaPythia/NppToaa;
   int NggToaa = 100000;
   float SggToaa = 0.271;
@@ -106,7 +118,7 @@ void ppggToaaDelphe()
   c_1->SetLogy();
   plotBinErrors = new TGraphErrors(binN,binCenter,binContent,
   					binCenterErr,binContentErr);
-  plotBinErrors->SetTitle("Delphe: p p -> a a [QCD], 200K");
+  plotBinErrors->SetTitle("Delphe: gg>aa[QCD] + pp>aa[QCD]");
   plotBinErrors->GetYaxis()->SetTitle("Events/40GeV");
   plotBinErrors->SetMarkerColor(1);
   plotBinErrors->SetMarkerStyle(20);
