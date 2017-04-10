@@ -1,12 +1,9 @@
 # DiPhoton
 
-#### MG hepmc to root, run Delphe ####
-
-* ./DelphesHepMC cards/converter_card.tcl output_MG.root input_MG.hepmc 
-* ./DelphesHepMC cards/delphes_card_ATLAS.tcl output_Delphe.root input_MG.hepmc
 
 #### Run the MG codes ####
-    
+
+* git clone https://github.com/ravindkv/DiPhoton.git
 * cd ggToaa/ggToaaMG/
 * root -l ggToaaMG.C
 * ggToaaMG t;
@@ -26,4 +23,8 @@
 * t->MakeClass("myclass")
 
 
+#### MG hepmc to root, run Delphe ####
+
+* ./DelphesHepMC cards/converter_card.tcl output_MG.root input_MG.hepmc 
+* ./DelphesHepMC cards/delphes_card_ATLAS.tcl output_Delphe.root input_MG.hepmc
 
