@@ -1,12 +1,12 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Sat Apr  1 12:59:06 2017 by ROOT version 5.34/36
+// Mon Apr 10 17:13:20 2017 by ROOT version 5.34/36
 // from TTree Delphes/Analysis tree
-// found on file: ppToaaATLAS_Py6Q_200K.root
+// found on file: Delphe_HEP_ppToaa_QCD_400K.root
 //////////////////////////////////////////////////////////
 
-#ifndef bho_h
-#define bho_h
+#ifndef ppToaaDelphe_h
+#define ppToaaDelphe_h
 
 #include <TROOT.h>
 #include <TChain.h>
@@ -18,30 +18,24 @@
 #include <TVector3.h>
 #include <TLorentzVector.h>
 
-////////////////////// Root File from Delhpe //////////////////
-//
-   TString input_root_file = "ppToaaATLAS_Py6Q_200K.root";
-   //TString input_root_file = "ppToaaATLAS_Py6Q_10K.root";
-
-///////////////////////////////////////////////////////////////
 // Fixed size dimensions of array or collections stored in the TTree if any.
    const Int_t kMaxEvent = 1;
-   const Int_t kMaxParticle = 775;
-   const Int_t kMaxTrack = 104;
-   const Int_t kMaxTower = 171;
-   const Int_t kMaxEFlowTrack = 104;
-   const Int_t kMaxEFlowPhoton = 78;
-   const Int_t kMaxEFlowNeutralHadron = 83;
+   const Int_t kMaxParticle = 793;
+   const Int_t kMaxTrack = 93;
+   const Int_t kMaxTower = 177;
+   const Int_t kMaxEFlowTrack = 93;
+   const Int_t kMaxEFlowPhoton = 85;
+   const Int_t kMaxEFlowNeutralHadron = 87;
    const Int_t kMaxGenJet = 9;
    const Int_t kMaxGenMissingET = 1;
-   const Int_t kMaxJet = 8;
+   const Int_t kMaxJet = 7;
    const Int_t kMaxElectron = 1;
    const Int_t kMaxPhoton = 3;
    const Int_t kMaxMuon = 1;
    const Int_t kMaxMissingET = 1;
    const Int_t kMaxScalarHT = 1;
 
-class bho {
+class ppToaaDelphe {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
    Int_t           fCurrent; //!current Tree number in a TChain
@@ -622,8 +616,8 @@ public :
    TBranch        *b_ScalarHT_HT;   //!
    TBranch        *b_ScalarHT_size;   //!
 
-   bho(TTree *tree=0);
-   virtual ~bho();
+   ppToaaDelphe(TTree *tree=0);
+   virtual ~ppToaaDelphe();
    virtual Int_t    Cut(Long64_t entry);
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
@@ -635,15 +629,15 @@ public :
 
 #endif
 
-#ifdef bho_cxx
-bho::bho(TTree *tree) : fChain(0) 
+#ifdef ppToaaDelphe_cxx
+ppToaaDelphe::ppToaaDelphe(TTree *tree) : fChain(0) 
 {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject(input_root_file);
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("Delphe_HEP_ppToaa_QCD_400K.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile(input_root_file);
+         f = new TFile("Delphe_HEP_ppToaa_QCD_400K.root");
       }
       f->GetObject("Delphes",tree);
 
@@ -651,19 +645,19 @@ bho::bho(TTree *tree) : fChain(0)
    Init(tree);
 }
 
-bho::~bho()
+ppToaaDelphe::~ppToaaDelphe()
 {
    if (!fChain) return;
    delete fChain->GetCurrentFile();
 }
 
-Int_t bho::GetEntry(Long64_t entry)
+Int_t ppToaaDelphe::GetEntry(Long64_t entry)
 {
 // Read contents of entry.
    if (!fChain) return 0;
    return fChain->GetEntry(entry);
 }
-Long64_t bho::LoadTree(Long64_t entry)
+Long64_t ppToaaDelphe::LoadTree(Long64_t entry)
 {
 // Set the environment to read one entry
    if (!fChain) return -5;
@@ -676,7 +670,7 @@ Long64_t bho::LoadTree(Long64_t entry)
    return centry;
 }
 
-void bho::Init(TTree *tree)
+void ppToaaDelphe::Init(TTree *tree)
 {
    // The Init() function is called when the selector needs to initialize
    // a new tree or chain. Typically here the branch addresses and branch
@@ -981,7 +975,7 @@ void bho::Init(TTree *tree)
    Notify();
 }
 
-Bool_t bho::Notify()
+Bool_t ppToaaDelphe::Notify()
 {
    // The Notify() function is called when a new file is opened. This
    // can be either for a new TTree in a TChain or when when a new TTree
@@ -992,18 +986,18 @@ Bool_t bho::Notify()
    return kTRUE;
 }
 
-void bho::Show(Long64_t entry)
+void ppToaaDelphe::Show(Long64_t entry)
 {
 // Print contents of entry.
 // If entry is not specified, print current entry
    if (!fChain) return;
    fChain->Show(entry);
 }
-Int_t bho::Cut(Long64_t entry)
+Int_t ppToaaDelphe::Cut(Long64_t entry)
 {
 // This function may be called from Loop.
 // returns  1 if entry is accepted.
 // returns -1 otherwise.
    return 1;
 }
-#endif // #ifdef bho_cxx
+#endif // #ifdef ppToaaDelphe_cxx

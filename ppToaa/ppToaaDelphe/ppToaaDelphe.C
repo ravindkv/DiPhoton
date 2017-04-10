@@ -5,6 +5,9 @@
 #include <TCanvas.h>
 #include <math.h>      
 
+#include <iostream>
+#include <fstream>
+
 void ppToaaDelphe::Loop_Delphe()
 {
   //////////////////////////////////////////////////////////// 
@@ -16,13 +19,14 @@ void ppToaaDelphe::Loop_Delphe()
   const int binN = 20;
   int xmin = 200;
   int xmax = 1000;
-  //TFile* f = new TFile("Mgg_histo.root","recreate");
-  TH1F* h = new TH1F("Histo", "Delphe: p p -> a a [QCD], 200K", binN, xmin,xmax);
-  
+  TH1F* h = new TH1F("Histo", "Delphe: p p -> a a [QCD], 400K", binN, xmin,xmax);
   Long64_t nentries = fChain->GetEntriesFast();
   cout << "============================="<<endl;
   cout << "  Total Events =  " << nentries <<endl;
   cout << "============================="<<endl;
+  
+  ofstream fileMgg;
+  fileMgg.open("Mgg_noCut_ppToaaDelphe_400K_PY6Q.dat");
  
   //Loop over number of events (nentries)   
   for (Long64_t nentry=0; nentry<nentries; nentry++) 
@@ -39,21 +43,33 @@ void ppToaaDelphe::Loop_Delphe()
       Float_t prod_PT = Photon_PT[0]*Photon_PT[1];
       Float_t diff_Eta = cosh(Photon_Eta[0] -Photon_Eta[1]);
       Float_t diff_Phi = cos(Photon_Phi[0]-Photon_Phi[1]);
-    
       //https://en.wikipedia.org/wiki/Invariant_mass
       Mgg = sqrt(abs(2*(prod_PT*(diff_Eta - diff_Phi))));
-      
+     
+      //Ht-cut
       for(int j=0; j<Jet_size; j++){
         Ht = Ht+ Jet_PT[j];
         //cout<<"Ht = "<<Ht<<endl;
       }
-      //Apply ATLAS cuts
+      //C-cut
+      Float_t Px1 = Photon_PT[0]* cos(Photon_Phi[0]);
+      Float_t Py1 = Photon_PT[0]* sin(Photon_Phi[0]);
+      Float_t Pz1 = Photon_PT[0]* sinh(Photon_Eta[0]);
+      Float_t Px2 = Photon_PT[1]* cos(Photon_Phi[1]);
+      Float_t Py2 = Photon_PT[1]* sin(Photon_Phi[1]);
+      Float_t Pz2 = Photon_PT[1]* sinh(Photon_Eta[1]);
+      Float_t cutC = sqrt(pow(Px1+Px2, 2)+pow(Py1+Py2, 2)+pow(Pz1+Pz2, 2));
+
+      if(Mgg >= 200){    
+      //if(Mgg >= 200 && cutC <= 2.5*Mgg){    
       //if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
-      if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200i && Ht >= 50){          
+      //if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200 && Ht >= 50){          
         h->Fill(Mgg); // Create a histogram of Mgg
+        fileMgg<<Mgg<<"\n";
       }
     }
   }
+  fileMgg.close();
       
   //////////////////////////////////////////////////////////// 
   //
@@ -89,7 +105,7 @@ void ppToaaDelphe::Loop_Delphe()
   // create the TGraphErrors and draw it
   plotBinErrors = new TGraphErrors(binN,binCenter,binContent,
   					binCenterErr,binContentErr);
-  plotBinErrors->SetTitle("Delphe: p p -> a a [QCD], 200K");
+  plotBinErrors->SetTitle("Delphe: p p -> a a [QCD], 400K");
   plotBinErrors->GetYaxis()->SetTitle("Events/40GeV");
   plotBinErrors->SetMarkerColor(1);
   plotBinErrors->SetMarkerStyle(20);
@@ -170,3 +186,4 @@ void ppToaaDelphe::Loop_Delphe()
  // f->Close();
 
 }
+
