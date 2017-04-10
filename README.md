@@ -1,9 +1,12 @@
 # DiPhoton
 
 
-#### Run the MG codes ####
+#### Download the DiPhoton ####
 
 * git clone https://github.com/ravindkv/DiPhoton.git
+
+#### Run the MG codes ####
+
 * cd ggToaa/ggToaaMG/
 * root -l ggToaaMG.C
 * ggToaaMG t;

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
 
 void ppggToaaDelphe()
 {
@@ -16,15 +17,15 @@ void ppggToaaDelphe()
   //                                                        // 
   ////////////////////////////////////////////////////////////
   
-  ifstream ggToaaAllCut("ggToaaDelphe_100K_PY8.dat");
-  ifstream ppToaaAllCut("ppToaaDelphe_400K_PY6Q.dat");
+  ifstream ggToaaAllCut("ggToaaDelphe_100K_PY8_C2p5.dat");
+  ifstream ppToaaAllCut("ppToaaDelphe_400K_PY6Q_C2p5.dat");
  
   // Create histo of Mgg, for gg
   const int binN = 20;
   int xmin = 200;
   int xmax = 1000;
   TH1F* hgg = new TH1F("hgg", "Delphe: g g -> a a [QCD], 100K", binN, xmin,xmax);
-  Int_t NggToaaAllCut = 0;
+  int NggToaaAllCut = 0;
   float ggPt1, ggMgg, ggPt2;
   while(true){
     ggToaaAllCut >> ggPt1 >> ggMgg >> ggPt2; 
@@ -39,7 +40,7 @@ void ppggToaaDelphe()
   int xmin = 200;
   int xmax = 1000;
   TH1F* hpp = new TH1F("hpp", "Delphe: p p -> a a [QCD], 400K", binN, xmin,xmax);
-  Int_t NppToaaAllCut = 0;
+  int NppToaaAllCut = 0;
   float ppPt1, ppMgg, ppPt2;
   while(true){
     ppToaaAllCut >> ppPt1 >> ppMgg >> ppPt2; 
@@ -69,11 +70,11 @@ void ppggToaaDelphe()
   ////////////////////////////////////////////////////////////
   
   //Get the statistics from gg and pp
-  Int_t NppToaa = 4000000;
+  int NppToaa = 4000000;
   float SppToaa = 102.96;
-  Int_t NppToaaPythia =  2388934;
+  int NppToaaPythia =  2388934;
   float SppToaaPythia = SppToaa*NppToaaPythia/NppToaa;
-  Int_t NggToaa = 100000;
+  int NggToaa = 100000;
   float SggToaa = 0.271;
   cout <<"Total gg events = "<<NggToaaAllCut<<endl;
   cout <<"Total pp events = "<<NppToaaAllCut<<endl;
@@ -89,32 +90,20 @@ void ppggToaaDelphe()
   Float_t binContentErr[binN] = {};
   
   TAxis * ppXaxis = hpp->GetXaxis();
-  cout<<endl;
-  cout<<"================================"<<endl;
-  cout<<setw(10)<<"bin"<<setw(10)<<"Center"<<setw(10)<<"Content"<<endl;
   for(int j = 0; j < binN; j++)
   {
   	//Note, the bin starts form 1 
   	binCenter[j] = ppXaxis->GetBinCenter(j+1);
   	binCenterErr[j] = 0*sqrt(binCenter[j]); 
-    
-    cout <<"hpp->GetBinContent(j+1) = "<<hpp->GetBinContent(j+1)<<endl;
-    cout<<"hgg->GetBinCenter(j+1) = "<<hgg->GetBinCenter(j+1)<<endl;
-    cout <<"SggToaaAllCut = "<<SggToaaAllCut<<endl;
-    cout <<"SppToaaAllCut = "<<SppToaaAllCut<<endl;
-    cout<<"NppToaaAllCut = "<<NppToaaAllCut<<endl;
-  	cout <<"NggToaaAllCut = "<<NggToaaAllCut<<endl;
-
-    binContent[j] = hpp->GetBinContent(j+1) + hgg->GetBinCenter(j+1)*(SggToaaAllCut/SppToaaAllCut)*(NppToaaAllCut/NggToaaAllCut)
-  	binContentErr[j] = sqrt(binContent[j]); 
-  	cout<<setw(10)<<j<<setw(10)<<binCenter[j]<<setw(10)<<binContent[j]<<endl;	
+    binContent[j] = (float)hpp->GetBinContent(j+1) + (float)hgg->GetBinContent(j+1)*((float)SggToaaAllCut/(float)SppToaaAllCut)*((float)NppToaaAllCut/(float)NggToaaAllCut);
+    binContentErr[j] = sqrt(binContent[j]); 
   }
 
+  // create the TGraphErrors and draw it
   TCanvas* c_1 = new TCanvas("c_1","diphoton spectrum ");
   c_1->Divide(1,2);
   c_1->cd(1);
   c_1->SetLogy();
-  // create the TGraphErrors and draw it
   plotBinErrors = new TGraphErrors(binN,binCenter,binContent,
   					binCenterErr,binContentErr);
   plotBinErrors->SetTitle("Delphe: p p -> a a [QCD], 200K");
@@ -124,8 +113,6 @@ void ppggToaaDelphe()
   plotBinErrors->Draw("AP");
   plotBinErrors->GetXaxis()->SetTitle("M_{gg} (GeV)");
 
-}
-/*
   
   //////////////////////////////////////////////////////////// 
   //
@@ -196,7 +183,6 @@ void ppggToaaDelphe()
   //Print the final fit/diff to the disk
   //c_1->Print("Mgg_diff.jpg");
 
-  h->Write();
+  //h->Write();
  // f->Close();
 }
-*/
