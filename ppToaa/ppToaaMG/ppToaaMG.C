@@ -62,8 +62,8 @@ void ppToaaMG::Loop_MG()
         //cout<<"Mg = ="<<Mgg<<endl;
         
         //Apply ATLAS and Ht cuts
-        //if(diPhoton_PT[0] >= 0.4*Mgg && diPhoton_PT[1] >= 0.3*Mgg && Mgg >= 200){    
-        if(Pt[0] >= 0.4*Mgg && Pt[1] >= 0.3*Mgg && Mgg >= 200 && Ht >= 50){    
+        if(diPhoton_PT[0] >= 0.4*Mgg && diPhoton_PT[1] >= 0.3*Mgg && Mgg >= 200){    
+        //if(diPhoton_PT[0] >= 0.4*Mgg && diPhoton_PT[1] >= 0.3*Mgg && Mgg >= 200 && Ht >= 50){    
     	
             h->Fill(Mgg); // Create a histogram of Mgg
         }

@@ -30,7 +30,11 @@ void ppToaaDelphe::Loop_Delphe()
   //fileMgg.open("Mgg_Ht50_ppToaaDelphe_400K_PY6Q.dat")
   //fileMgg.open("Mgg_C2p5_ppToaaDelphe_400K_PY6Q.dat")
   //fileMgg.open("Mgg_EtCuts_ggToaaDelphe_100K_PY8.dat")
- 
+
+  TH1F* etaPhot1 = new TH1F("pp: etaphot1", "eta of first photon", 100, -3, +3);
+  TH1F* etaPhot2 = new TH1F("pp: etaphot2", "eta of second photon", 100, -3, +3);
+  TH1F* htOfjets = new TH1F("pp: htOfjets", "sum of transverse pt of jets", 100, 0, 500);
+
   //Loop over number of events (nentries)   
   for (Long64_t nentry=0; nentry<nentries; nentry++) 
   {
@@ -62,16 +66,29 @@ void ppToaaDelphe::Loop_Delphe()
       Float_t Py2 = Photon_PT[1]* sin(Photon_Phi[1]);
       Float_t Pz2 = Photon_PT[1]* sinh(Photon_Eta[1]);
       Float_t cutC = sqrt(pow(Px1+Px2, 2)+pow(Py1+Py2, 2)+pow(Pz1+Pz2, 2));
-
-      if(Mgg >= 200){    
+     
+      //
+      //if(Mgg >= 200){    
       //if(Mgg >= 200 && Ht >= 50){          
       //if(Mgg >= 200 && cutC <= 2.5*Mgg){    
-      //if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
+      if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
         h->Fill(Mgg); // Create a histogram of Mgg
         fileMgg<<Mgg<<"\n";
+        etaPhot1->Fill(Photon_Eta[0]);
+        etaPhot2->Fill(Photon_Eta[1]);
+        htOfjets->Fill(Ht);
       }
     }
   }
+  //draw the Eta, Ht distributions
+  TCanvas* c1 = new TCanvas("c1","Eta, Ht distributions");
+  c1->Divide(3,1);
+  c1->cd(1);
+  etaPhot1->Draw();
+  c1->cd(2);
+  etaPhot2->Draw();
+  c1->cd(3);
+  htOfjets->Draw();
   fileMgg.close();
       
   //////////////////////////////////////////////////////////// 

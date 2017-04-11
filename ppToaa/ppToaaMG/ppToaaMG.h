@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Wed Mar  1 22:38:09 2017 by ROOT version 5.34/36
+// Tue Apr 11 07:25:29 2017 by ROOT version 5.34/36
 // from TTree Delphes/Analysis tree
-// found on file: MG_output_gg_aa.root
+// found on file: MGv233_LHE_ppToaa_QCD_4000K.root
 //////////////////////////////////////////////////////////
 
 #ifndef ppToaaMG_h
@@ -16,16 +16,10 @@
 #include <TClonesArray.h>
 #include <TObject.h>
 
-////////////////////// Root File from Delhpe //////////////////
-//
-   //TString input_root_file = "ppToaaMG_PY8_10K.root";
-   TString input_root_file = "ppToaaMG_Py6Q_200K.root";
-//
-///////////////////////////////////////////////////////////////
-
 // Fixed size dimensions of array or collections stored in the TTree if any.
    const Int_t kMaxEvent = 1;
-   const Int_t kMaxParticle = 4024;
+   const Int_t kMaxWeight = 1;
+   const Int_t kMaxParticle = 18;
 
 class ppToaaMG {
 public :
@@ -40,19 +34,16 @@ public :
    Float_t         Event_ReadTime[kMaxEvent];   //[Event_]
    Float_t         Event_ProcTime[kMaxEvent];   //[Event_]
    Int_t           Event_ProcessID[kMaxEvent];   //[Event_]
-   Int_t           Event_MPI[kMaxEvent];   //[Event_]
    Float_t         Event_Weight[kMaxEvent];   //[Event_]
-   Float_t         Event_Scale[kMaxEvent];   //[Event_]
+   Float_t         Event_ScalePDF[kMaxEvent];   //[Event_]
    Float_t         Event_AlphaQED[kMaxEvent];   //[Event_]
    Float_t         Event_AlphaQCD[kMaxEvent];   //[Event_]
-   Int_t           Event_ID1[kMaxEvent];   //[Event_]
-   Int_t           Event_ID2[kMaxEvent];   //[Event_]
-   Float_t         Event_X1[kMaxEvent];   //[Event_]
-   Float_t         Event_X2[kMaxEvent];   //[Event_]
-   Float_t         Event_ScalePDF[kMaxEvent];   //[Event_]
-   Float_t         Event_PDF1[kMaxEvent];   //[Event_]
-   Float_t         Event_PDF2[kMaxEvent];   //[Event_]
    Int_t           Event_size;
+   Int_t           Weight_;
+   UInt_t          Weight_fUniqueID[kMaxWeight];   //[Weight_]
+   UInt_t          Weight_fBits[kMaxWeight];   //[Weight_]
+   Float_t         Weight_Weight[kMaxWeight];   //[Weight_]
+   Int_t           Weight_size;
    Int_t           Particle_;
    UInt_t          Particle_fUniqueID[kMaxParticle];   //[Particle_]
    UInt_t          Particle_fBits[kMaxParticle];   //[Particle_]
@@ -69,14 +60,10 @@ public :
    Float_t         Particle_Px[kMaxParticle];   //[Particle_]
    Float_t         Particle_Py[kMaxParticle];   //[Particle_]
    Float_t         Particle_Pz[kMaxParticle];   //[Particle_]
-   Float_t         Particle_P[kMaxParticle];   //[Particle_]
    Float_t         Particle_PT[kMaxParticle];   //[Particle_]
    Float_t         Particle_Eta[kMaxParticle];   //[Particle_]
    Float_t         Particle_Phi[kMaxParticle];   //[Particle_]
    Float_t         Particle_Rapidity[kMaxParticle];   //[Particle_]
-   Float_t         Particle_CtgTheta[kMaxParticle];   //[Particle_]
-   Float_t         Particle_D0[kMaxParticle];   //[Particle_]
-   Float_t         Particle_DZ[kMaxParticle];   //[Particle_]
    Float_t         Particle_T[kMaxParticle];   //[Particle_]
    Float_t         Particle_X[kMaxParticle];   //[Particle_]
    Float_t         Particle_Y[kMaxParticle];   //[Particle_]
@@ -91,19 +78,16 @@ public :
    TBranch        *b_Event_ReadTime;   //!
    TBranch        *b_Event_ProcTime;   //!
    TBranch        *b_Event_ProcessID;   //!
-   TBranch        *b_Event_MPI;   //!
    TBranch        *b_Event_Weight;   //!
-   TBranch        *b_Event_Scale;   //!
+   TBranch        *b_Event_ScalePDF;   //!
    TBranch        *b_Event_AlphaQED;   //!
    TBranch        *b_Event_AlphaQCD;   //!
-   TBranch        *b_Event_ID1;   //!
-   TBranch        *b_Event_ID2;   //!
-   TBranch        *b_Event_X1;   //!
-   TBranch        *b_Event_X2;   //!
-   TBranch        *b_Event_ScalePDF;   //!
-   TBranch        *b_Event_PDF1;   //!
-   TBranch        *b_Event_PDF2;   //!
    TBranch        *b_Event_size;   //!
+   TBranch        *b_Weight_;   //!
+   TBranch        *b_Weight_fUniqueID;   //!
+   TBranch        *b_Weight_fBits;   //!
+   TBranch        *b_Weight_Weight;   //!
+   TBranch        *b_Weight_size;   //!
    TBranch        *b_Particle_;   //!
    TBranch        *b_Particle_fUniqueID;   //!
    TBranch        *b_Particle_fBits;   //!
@@ -120,14 +104,10 @@ public :
    TBranch        *b_Particle_Px;   //!
    TBranch        *b_Particle_Py;   //!
    TBranch        *b_Particle_Pz;   //!
-   TBranch        *b_Particle_P;   //!
    TBranch        *b_Particle_PT;   //!
    TBranch        *b_Particle_Eta;   //!
    TBranch        *b_Particle_Phi;   //!
    TBranch        *b_Particle_Rapidity;   //!
-   TBranch        *b_Particle_CtgTheta;   //!
-   TBranch        *b_Particle_D0;   //!
-   TBranch        *b_Particle_DZ;   //!
    TBranch        *b_Particle_T;   //!
    TBranch        *b_Particle_X;   //!
    TBranch        *b_Particle_Y;   //!
@@ -153,9 +133,9 @@ ppToaaMG::ppToaaMG(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject(input_root_file);
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("MGv233_LHE_ppToaa_QCD_4000K.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile(input_root_file);
+         f = new TFile("MGv233_LHE_ppToaa_QCD_4000K.root");
       }
       f->GetObject("Delphes",tree);
 
@@ -211,19 +191,16 @@ void ppToaaMG::Init(TTree *tree)
    fChain->SetBranchAddress("Event.ReadTime", Event_ReadTime, &b_Event_ReadTime);
    fChain->SetBranchAddress("Event.ProcTime", Event_ProcTime, &b_Event_ProcTime);
    fChain->SetBranchAddress("Event.ProcessID", Event_ProcessID, &b_Event_ProcessID);
-   fChain->SetBranchAddress("Event.MPI", Event_MPI, &b_Event_MPI);
    fChain->SetBranchAddress("Event.Weight", Event_Weight, &b_Event_Weight);
-   fChain->SetBranchAddress("Event.Scale", Event_Scale, &b_Event_Scale);
+   fChain->SetBranchAddress("Event.ScalePDF", Event_ScalePDF, &b_Event_ScalePDF);
    fChain->SetBranchAddress("Event.AlphaQED", Event_AlphaQED, &b_Event_AlphaQED);
    fChain->SetBranchAddress("Event.AlphaQCD", Event_AlphaQCD, &b_Event_AlphaQCD);
-   fChain->SetBranchAddress("Event.ID1", Event_ID1, &b_Event_ID1);
-   fChain->SetBranchAddress("Event.ID2", Event_ID2, &b_Event_ID2);
-   fChain->SetBranchAddress("Event.X1", Event_X1, &b_Event_X1);
-   fChain->SetBranchAddress("Event.X2", Event_X2, &b_Event_X2);
-   fChain->SetBranchAddress("Event.ScalePDF", Event_ScalePDF, &b_Event_ScalePDF);
-   fChain->SetBranchAddress("Event.PDF1", Event_PDF1, &b_Event_PDF1);
-   fChain->SetBranchAddress("Event.PDF2", Event_PDF2, &b_Event_PDF2);
    fChain->SetBranchAddress("Event_size", &Event_size, &b_Event_size);
+   fChain->SetBranchAddress("Weight", &Weight_, &b_Weight_);
+   fChain->SetBranchAddress("Weight.fUniqueID", &Weight_fUniqueID, &b_Weight_fUniqueID);
+   fChain->SetBranchAddress("Weight.fBits", &Weight_fBits, &b_Weight_fBits);
+   fChain->SetBranchAddress("Weight.Weight", &Weight_Weight, &b_Weight_Weight);
+   fChain->SetBranchAddress("Weight_size", &Weight_size, &b_Weight_size);
    fChain->SetBranchAddress("Particle", &Particle_, &b_Particle_);
    fChain->SetBranchAddress("Particle.fUniqueID", Particle_fUniqueID, &b_Particle_fUniqueID);
    fChain->SetBranchAddress("Particle.fBits", Particle_fBits, &b_Particle_fBits);
@@ -240,14 +217,10 @@ void ppToaaMG::Init(TTree *tree)
    fChain->SetBranchAddress("Particle.Px", Particle_Px, &b_Particle_Px);
    fChain->SetBranchAddress("Particle.Py", Particle_Py, &b_Particle_Py);
    fChain->SetBranchAddress("Particle.Pz", Particle_Pz, &b_Particle_Pz);
-   fChain->SetBranchAddress("Particle.P", Particle_P, &b_Particle_P);
    fChain->SetBranchAddress("Particle.PT", Particle_PT, &b_Particle_PT);
    fChain->SetBranchAddress("Particle.Eta", Particle_Eta, &b_Particle_Eta);
    fChain->SetBranchAddress("Particle.Phi", Particle_Phi, &b_Particle_Phi);
    fChain->SetBranchAddress("Particle.Rapidity", Particle_Rapidity, &b_Particle_Rapidity);
-   fChain->SetBranchAddress("Particle.CtgTheta", Particle_CtgTheta, &b_Particle_CtgTheta);
-   fChain->SetBranchAddress("Particle.D0", Particle_D0, &b_Particle_D0);
-   fChain->SetBranchAddress("Particle.DZ", Particle_DZ, &b_Particle_DZ);
    fChain->SetBranchAddress("Particle.T", Particle_T, &b_Particle_T);
    fChain->SetBranchAddress("Particle.X", Particle_X, &b_Particle_X);
    fChain->SetBranchAddress("Particle.Y", Particle_Y, &b_Particle_Y);

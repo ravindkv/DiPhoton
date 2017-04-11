@@ -18,16 +18,16 @@ void ppggToaaDelphe()
   ////////////////////////////////////////////////////////////
  
   // No cut: Mgg >= 200
-  ifstream ggToaaAllCut("Mgg_noCut_ggToaaDelphe_100K_PY8.dat");
-  ifstream ppToaaAllCut("Mgg_noCut_ppToaaDelphe_400K_PY6Q.dat");
+  //ifstream ggToaaAllCut("Mgg_noCut_ggToaaDelphe_100K_PY8.dat");
+  //ifstream ppToaaAllCut("Mgg_noCut_ppToaaDelphe_400K_PY6Q.dat");
   
   // Ht cut: Mgg >= 200 && Ht >= 50
-  ifstream ggToaaAllCut("Mgg_Ht50_ggToaaDelphe_100K_PY8.dat");
-  ifstream ppToaaAllCut("Mgg_Ht50_ppToaaDelphe_400K_PY6Q.dat");
+  //ifstream ggToaaAllCut("Mgg_Ht50_ggToaaDelphe_100K_PY8.dat");
+  //ifstream ppToaaAllCut("Mgg_Ht50_ppToaaDelphe_400K_PY6Q.dat");
   
   // C-cut : Mgg >= 200 && cutC <= 2.5*Mgg
-  ifstream ggToaaAllCut("Mgg_C2p5_ggToaaDelphe_100K_PY8.dat");
-  ifstream ppToaaAllCut("Mgg_C2p5_ppToaaDelphe_400K_PY6Q.dat");
+  //ifstream ggToaaAllCut("Mgg_C2p5_ggToaaDelphe_100K_PY8.dat");
+  //ifstream ppToaaAllCut("Mgg_C2p5_ppToaaDelphe_400K_PY6Q.dat");
   
   // atlas : PT1 >= 0.4*Mgg && Pt2[1]>= 0.3*Mgg && Mgg >= 200
   ifstream ggToaaAllCut("Mgg_EtCuts_ggToaaDelphe_100K_PY8.dat");
@@ -64,6 +64,7 @@ void ppggToaaDelphe()
   }
   
   //Draw the histograms
+  /*
   TCanvas* c1 = new TCanvas("c1","diphoton spectrum ");
   c1->Divide(2,1);
   c1->cd(1);
@@ -74,7 +75,7 @@ void ppggToaaDelphe()
   hpp->Draw();
   //hpp->GetYaxis()->SetTitle("Events/40GeV");
   hpp->GetXaxis()->SetTitle("M_{gg} (GeV)");
-
+  */
   //////////////////////////////////////////////////////////// 
   //                                                        //
   // Section - 2 : Combine events from the both histograms //
@@ -84,7 +85,7 @@ void ppggToaaDelphe()
   //Get the statistics from gg and pp
   int NppToaa = 400000;
   float SppToaa = 102.96;
-  int NppToaaPythia =  400000;
+  int NppToaaPythia =  399969;
   float SppToaaPythia = SppToaa*NppToaaPythia/NppToaa;
   int NggToaa = 100000;
   float SggToaa = 0.271;
