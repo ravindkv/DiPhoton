@@ -19,17 +19,21 @@ void ppToaaDelphe::Loop_Delphe()
   const int binN = 20;
   int xmin = 200;
   int xmax = 1000;
-  TH1F* h = new TH1F("Histo", "Delphe: p p -> a a [QCD], 400K", binN, xmin,xmax);
+  TH1F* h = new TH1F("Histo", "Delphe: p p -> a a [QCD], 1000K", binN, xmin,xmax);
   Long64_t nentries = fChain->GetEntriesFast();
   cout << "============================="<<endl;
   cout << "  Total Events =  " << nentries <<endl;
   cout << "============================="<<endl;
   
   ofstream fileMgg;
-  fileMgg.open("Mgg_noCut_ppToaaDelphe_400K_PY6Q.dat")
-  //fileMgg.open("Mgg_Ht50_ppToaaDelphe_400K_PY6Q.dat")
-  //fileMgg.open("Mgg_C2p5_ppToaaDelphe_400K_PY6Q.dat")
-  //fileMgg.open("Mgg_EtCuts_ggToaaDelphe_100K_PY8.dat")
+  //cut-1
+  fileMgg.open("Mgg_cut1_ppToaaDelphe_4000K_PY6Q.dat");
+  //cut-2
+  //fileMgg.open("Mgg_cut2_ppToaaDelphe_4000K_PY6Q.dat");
+  //cut-3
+  //fileMgg.open("Mgg_cut3_ppToaaDelphe_4000K_PY6Q.dat");
+  //cut-4
+  //fileMgg.open("Mgg_cut4_ppToaaDelphe_4000K_PY6Q.dat");
 
   TH1F* etaPhot1 = new TH1F("pp: etaphot1", "eta of first photon", 100, -3, +3);
   TH1F* etaPhot2 = new TH1F("pp: etaphot2", "eta of second photon", 100, -3, +3);
@@ -67,19 +71,26 @@ void ppToaaDelphe::Loop_Delphe()
       Float_t Pz2 = Photon_PT[1]* sinh(Photon_Eta[1]);
       Float_t cutC = sqrt(pow(Px1+Px2, 2)+pow(Py1+Py2, 2)+pow(Pz1+Pz2, 2));
      
-      //
-      //if(Mgg >= 200){    
-      //if(Mgg >= 200 && Ht >= 50){          
-      //if(Mgg >= 200 && cutC <= 2.5*Mgg){    
       if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
+        //cut-1
+        if(cutC <= 2.0*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=200){    
+        //cut-2
+        //if(cutC <= 0.5*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=200){    
+        //cut-3
+        //if(cutC <= 2.0*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=100){    
+        //cut-4
+        //if(cutC <= 0.5*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=100){    
         h->Fill(Mgg); // Create a histogram of Mgg
         fileMgg<<Mgg<<"\n";
         etaPhot1->Fill(Photon_Eta[0]);
         etaPhot2->Fill(Photon_Eta[1]);
         htOfjets->Fill(Ht);
+      
+        }
       }
     }
   }
+  fileMgg.close();
   //draw the Eta, Ht distributions
   TCanvas* c1 = new TCanvas("c1","Eta, Ht distributions");
   c1->Divide(3,1);
@@ -89,7 +100,6 @@ void ppToaaDelphe::Loop_Delphe()
   etaPhot2->Draw();
   c1->cd(3);
   htOfjets->Draw();
-  fileMgg.close();
       
   //////////////////////////////////////////////////////////// 
   //
@@ -125,7 +135,7 @@ void ppToaaDelphe::Loop_Delphe()
   // create the TGraphErrors and draw it
   plotBinErrors = new TGraphErrors(binN,binCenter,binContent,
   					binCenterErr,binContentErr);
-  plotBinErrors->SetTitle("Delphe: p p -> a a [QCD], 400K");
+  plotBinErrors->SetTitle("Delphe: p p -> a a [QCD], 1000K");
   plotBinErrors->GetYaxis()->SetTitle("Events/40GeV");
   plotBinErrors->SetMarkerColor(1);
   plotBinErrors->SetMarkerStyle(20);

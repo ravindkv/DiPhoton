@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Mon Apr 10 17:13:20 2017 by ROOT version 5.34/36
+// Mon Apr 17 18:11:45 2017 by ROOT version 5.34/36
 // from TTree Delphes/Analysis tree
-// found on file: Delphe_HEP_ppToaa_QCD_400K.root
+// found on file: Delphe_HEP_ppToaaQCD_1000K.root
 //////////////////////////////////////////////////////////
 
 #ifndef ppToaaDelphe_h
@@ -20,15 +20,15 @@
 
 // Fixed size dimensions of array or collections stored in the TTree if any.
    const Int_t kMaxEvent = 1;
-   const Int_t kMaxParticle = 793;
-   const Int_t kMaxTrack = 93;
-   const Int_t kMaxTower = 177;
-   const Int_t kMaxEFlowTrack = 93;
-   const Int_t kMaxEFlowPhoton = 85;
-   const Int_t kMaxEFlowNeutralHadron = 87;
-   const Int_t kMaxGenJet = 9;
+   const Int_t kMaxParticle = 796;
+   const Int_t kMaxTrack = 103;
+   const Int_t kMaxTower = 169;
+   const Int_t kMaxEFlowTrack = 103;
+   const Int_t kMaxEFlowPhoton = 87;
+   const Int_t kMaxEFlowNeutralHadron = 89;
+   const Int_t kMaxGenJet = 11;
    const Int_t kMaxGenMissingET = 1;
-   const Int_t kMaxJet = 7;
+   const Int_t kMaxJet = 10;
    const Int_t kMaxElectron = 1;
    const Int_t kMaxPhoton = 3;
    const Int_t kMaxMuon = 1;
@@ -635,9 +635,9 @@ ppToaaDelphe::ppToaaDelphe(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("Delphe_HEP_ppToaa_QCD_400K.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("Delphe_HEP_ppToaaQCD_1000K.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("Delphe_HEP_ppToaa_QCD_400K.root");
+         f = new TFile("Delphe_HEP_ppToaaQCD_1000K.root");
       }
       f->GetObject("Delphes",tree);
 
