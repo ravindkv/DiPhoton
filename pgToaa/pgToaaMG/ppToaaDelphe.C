@@ -1,14 +1,11 @@
-#define ggToaaDelphe_cxx
-#include "ggToaaDelphe.h"
+#define ppToaaDelphe_cxx
+#include "ppToaaDelphe.h"
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
 #include <math.h>      
 
-#include <iostream>
-#include <fstream>
-
-void ggToaaDelphe::Loop_Delphe()
+void ppToaaDelphe::Loop_Delphe()
 {
   //////////////////////////////////////////////////////////// 
   //
@@ -16,40 +13,30 @@ void ggToaaDelphe::Loop_Delphe()
   //
   ////////////////////////////////////////////////////////////
   
+  ifstream myfile("file1.txt");
+  string data;
+  getline (myfile, data);
+  cout << data << endl;
+  
   const int binN = 20;
   int xmin = 200;
   int xmax = 1000;
-  //TFile* f = new TFile("Mgg_histo.root","recreate");
-  TH1F* h = new TH1F("Histo"," g g -> a a [100K], ATLAS cuts ", binN, xmin,xmax);
   
+  //TFile* f = new TFile("Mgg_histo.root","recreate");
+  TH1F* h = new TH1F("Histo", "Delphe: p p -> a a [QCD], 200K", binN, xmin,xmax);
+
   Long64_t nentries = fChain->GetEntriesFast();
   cout << "============================="<<endl;
   cout << "  Total Events =  " << nentries <<endl;
   cout << "============================="<<endl;
-  
-  ofstream fileMgg;
-  //cut-0
-  fileMgg.open("Mgg_cut0_ggToaaDelphe_100K_PY8.dat");
-  //cut-1
-  //fileMgg.open("Mgg_cut1_ggToaaDelphe_100K_PY8.dat");
-  //cut-2
-  //fileMgg.open("Mgg_cut2_ggToaaDelphe_100K_PY8.dat");
-  //cut-3
-  //fileMgg.open("Mgg_cut3_ggToaaDelphe_100K_PY8.dat");
-  //cut-4
-  //fileMgg.open("Mgg_cut4_ggToaaDelphe_100K_PY8.dat");
-  
-  TH1F* etaPhot1 = new TH1F("gg: etaphot1", "eta of first photon", 100, -3, +3);
-  TH1F* etaPhot2 = new TH1F("gg: etaphot2", "eta of second photon", 100, -3, +3);
-  TH1F* htOfjets = new TH1F("gg: htOfjets", "sum of transverse pt of jets", 100, 0, 500);
-  
+ 
   //Loop over number of events (nentries)   
   for (Long64_t nentry=0; nentry<nentries; nentry++) 
   {
     if(nentry%100==0){
     cout<<"Event number = "<< nentry<<endl;
     }
-    
+
     fChain->GetEntry(nentry);
     //fChain->GetEntry();
     double Ht = 0;
@@ -58,49 +45,22 @@ void ggToaaDelphe::Loop_Delphe()
       Float_t prod_PT = Photon_PT[0]*Photon_PT[1];
       Float_t diff_Eta = cosh(Photon_Eta[0] -Photon_Eta[1]);
       Float_t diff_Phi = cos(Photon_Phi[0]-Photon_Phi[1]);
+    
       //https://en.wikipedia.org/wiki/Invariant_mass
       Mgg = sqrt(abs(2*(prod_PT*(diff_Eta - diff_Phi))));
+      
       for(int j=0; j<Jet_size; j++){
         Ht = Ht+ Jet_PT[j];
         //cout<<"Ht = "<<Ht<<endl;
       }
-      //C-cut
-      Float_t Px1 = Photon_PT[0]* cos(Photon_Phi[0]);
-      Float_t Py1 = Photon_PT[0]* sin(Photon_Phi[0]);
-      Float_t Pz1 = Photon_PT[0]* sinh(Photon_Eta[0]);
-      Float_t Px2 = Photon_PT[1]* cos(Photon_Phi[1]);
-      Float_t Py2 = Photon_PT[1]* sin(Photon_Phi[1]);
-      Float_t Pz2 = Photon_PT[1]* sinh(Photon_Eta[1]);
-      Float_t cutC = sqrt(pow(Px1+Px2, 2)+pow(Py1+Py2, 2)+pow(Pz1+Pz2, 2));
-
-      if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
-        //cut-1
-        //if(cutC <= 2.0*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=200){    
-        //cut-2
-        //if(cutC <= 0.5*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=200){    
-        //cut-3
-        //if(cutC <= 2.0*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=100){    
-        //cut-4
-        //if(cutC <= 0.5*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=100){    
+      //Apply ATLAS cuts
+      //if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
+      if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200i && Ht >= 50){          
         h->Fill(Mgg); // Create a histogram of Mgg
-        fileMgg<<Mgg<<"\n";
-        etaPhot1->Fill(Photon_Eta[0]);
-        etaPhot2->Fill(Photon_Eta[1]);
-        htOfjets->Fill(Ht);
-        //}
       }
     }
   }
-  //draw the Eta, Ht distributions
-  TCanvas* c1 = new TCanvas("c1","Eta, Ht distributions");
-  c1->Divide(3,1);
-  c1->cd(1);
-  etaPhot1->Draw();
-  c1->cd(2);
-  etaPhot2->Draw();
-  c1->cd(3);
-  htOfjets->Draw();
-  fileMgg.close();
+      
   //////////////////////////////////////////////////////////// 
   //
   // Section - 2 : Read the binCenter & binContent of histo //
@@ -135,7 +95,7 @@ void ggToaaDelphe::Loop_Delphe()
   // create the TGraphErrors and draw it
   plotBinErrors = new TGraphErrors(binN,binCenter,binContent,
   					binCenterErr,binContentErr);
-  plotBinErrors->SetTitle("Delphe: g g -> a a [QCD], 100K");
+  plotBinErrors->SetTitle("Delphe: p p -> a a [QCD], 200K");
   plotBinErrors->GetYaxis()->SetTitle("Events/40GeV");
   plotBinErrors->SetMarkerColor(1);
   plotBinErrors->SetMarkerStyle(20);
@@ -204,7 +164,7 @@ void ggToaaDelphe::Loop_Delphe()
   plotDiffErrors->Draw("AP");
   plotDiffErrors->GetXaxis()->SetTitle("M_{gg} (GeV)");
   plotDiffErrors->GetYaxis()->SetTitle("Data - fitted background");
-  //plotDiffErrors->SetTitle("Delphe: g g -> a a [QCD], 100K");
+  //plotDiffErrors->SetTitle("g g -> a a [QCD], 100K");
 
   TF1 *baseLine = new TF1("baseLine","0",0,2000); 
   baseLine->Draw("SAME");
