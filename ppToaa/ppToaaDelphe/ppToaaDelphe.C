@@ -21,13 +21,12 @@ void ppToaaDelphe::Loop_Delphe()
   int xmax = 1000;
   TH1F* h = new TH1F("Histo", "Delphe: p p -> a a [QCD], 1000K", binN, xmin,xmax);
   Long64_t nentries = fChain->GetEntriesFast();
-  cout << "============================="<<endl;
-  cout << "  Total Events =  " << nentries <<endl;
-  cout << "============================="<<endl;
   
   ofstream fileMgg;
+  //cut-0
+  fileMgg.open("Mgg_cut0_ppToaaDelphe_4000K_PY6Q.dat");
   //cut-1
-  fileMgg.open("Mgg_cut1_ppToaaDelphe_4000K_PY6Q.dat");
+  //fileMgg.open("Mgg_cut1_ppToaaDelphe_4000K_PY6Q.dat");
   //cut-2
   //fileMgg.open("Mgg_cut2_ppToaaDelphe_4000K_PY6Q.dat");
   //cut-3
@@ -72,8 +71,10 @@ void ppToaaDelphe::Loop_Delphe()
       Float_t cutC = sqrt(pow(Px1+Px2, 2)+pow(Py1+Py2, 2)+pow(Pz1+Pz2, 2));
      
       if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
+        //cut-0
+        if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
         //cut-1
-        if(cutC <= 2.0*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=200){    
+        //if(cutC <= 2.0*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=200){    
         //cut-2
         //if(cutC <= 0.5*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=200){    
         //cut-3
@@ -100,6 +101,9 @@ void ppToaaDelphe::Loop_Delphe()
   etaPhot2->Draw();
   c1->cd(3);
   htOfjets->Draw();
+  cout << "============================="<<endl;
+  cout << "  Total Events =  " << nentries <<endl;
+  cout << "============================="<<endl;
       
   //////////////////////////////////////////////////////////// 
   //
