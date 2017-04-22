@@ -19,7 +19,7 @@ void ppToaaDelphe::Loop_Delphe()
   const int binN = 20;
   int xmin = 200;
   int xmax = 1000;
-  TH1F* h = new TH1F("Histo", "Delphe: p p -> a a [QCD], 1000K", binN, xmin,xmax);
+  TH1F* h = new TH1F("Histo", "Delphe: p p -> a a [QCD], 4000K", binN, xmin,xmax);
   Long64_t nentries = fChain->GetEntriesFast();
   
   ofstream fileMgg;
