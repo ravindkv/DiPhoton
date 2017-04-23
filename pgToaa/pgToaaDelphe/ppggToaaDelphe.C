@@ -19,27 +19,27 @@ void ppggToaaDelphe()
  
   // No cut: Mgg >= 200
  /*
-  */ 
-  const char *title = "Delphe: ATLAS , gg>aa[QCD] + pp>aa[QCD]";
+  const char *title = "Delphe: ATLAS , gg>aa[100K] + pp>aa[4000K]";
   ifstream ggToaaAllCut("Mgg_cut0_ggToaaDelphe_100K_PY8.dat");
   ifstream ppToaaAllCut("Mgg_cut0_ppToaaDelphe_4000K_PY6Q.dat");
   
- /*
-  const char *title = "Delphe:ATLAS + Cut-1 , gg>aa[QCD] + pp>aa[QCD]";
+  const char *title = "Delphe: ATLAS + Cut-1 , gg>aa[100K] + pp>aa[4000K]";
   ifstream ggToaaAllCut("Mgg_cut1_ggToaaDelphe_100K_PY8.dat");
   ifstream ppToaaAllCut("Mgg_cut1_ppToaaDelphe_4000K_PY6Q.dat");
   
-  const char *title = "Delphe: ATLAS + Cut-2 , gg>aa[QCD] + pp>aa[QCD]";
+  const char *title = "Delphe: ATLAS + Cut-2 , gg>aa[100K] + pp>aa[4000K]";
   ifstream ggToaaAllCut("Mgg_cut2_ggToaaDelphe_100K_PY8.dat");
   ifstream ppToaaAllCut("Mgg_cut2_ppToaaDelphe_4000K_PY6Q.dat");
   
-  const char *title = "Delphe: ATLAS + Cut-3 , gg>aa[QCD] + pp>aa[QCD]";
+  const char *title = "Delphe: ATLAS + Cut-3 , gg>aa[100K] + pp>aa[4000K]";
   ifstream ggToaaAllCut("Mgg_cut3_ggToaaDelphe_100K_PY8.dat");
   ifstream ppToaaAllCut("Mgg_cut3_ppToaaDelphe_4000K_PY6Q.dat");
+  */ 
   
-  const char *title = "Delphe: ATLAS + Cut-4 , gg>aa[QCD] + pp>aa[QCD]";
+  const char *title = "Delphe: ATLAS + Cut-4 , gg>aa[100K] + pp>aa[4000K]";
   ifstream ggToaaAllCut("Mgg_cut4_ggToaaDelphe_100K_PY8.dat");
   ifstream ppToaaAllCut("Mgg_cut4_ppToaaDelphe_4000K_PY6Q.dat");
+ /*
   */
   // Create histo of Mgg, for gg
   const int binN = 20;
@@ -91,9 +91,9 @@ void ppggToaaDelphe()
   ////////////////////////////////////////////////////////////
   
   //Get the statistics from gg and pp
-  int NppToaa = 400000;
+  int NppToaa = 4000000;
   float SppToaa = 102.96;
-  int NppToaaPythia =  399969;
+  int NppToaaPythia =  3999622;
   float SppToaaPythia = SppToaa*NppToaaPythia/NppToaa;
   int NggToaa = 100000;
   float SggToaa = 0.271;

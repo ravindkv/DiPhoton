@@ -23,8 +23,10 @@ void ppToaaDelphe::Loop_Delphe()
   Long64_t nentries = fChain->GetEntriesFast();
   
   ofstream fileMgg;
+  //C-cut: 2.5
+  fileMgg.open("Mgg_C2p5_ppToaaDelphe_4000K_PY6Q.dat");
   //cut-0
-  fileMgg.open("Mgg_cut0_ppToaaDelphe_4000K_PY6Q.dat");
+  //fileMgg.open("Mgg_cut0_ppToaaDelphe_4000K_PY6Q.dat");
   //cut-1
   //fileMgg.open("Mgg_cut1_ppToaaDelphe_4000K_PY6Q.dat");
   //cut-2
@@ -70,9 +72,11 @@ void ppToaaDelphe::Loop_Delphe()
       Float_t Pz2 = Photon_PT[1]* sinh(Photon_Eta[1]);
       Float_t cutC = sqrt(pow(Px1+Px2, 2)+pow(Py1+Py2, 2)+pow(Pz1+Pz2, 2));
      
-      if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
+        //Ht-Cut
+      //if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
+      if(cutC <= 2.5*Mgg && Mgg >= 200){    
         //cut-0
-        if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
+        //if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
         //cut-1
         //if(cutC <= 2.0*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=200){    
         //cut-2
@@ -86,8 +90,7 @@ void ppToaaDelphe::Loop_Delphe()
         etaPhot1->Fill(Photon_Eta[0]);
         etaPhot2->Fill(Photon_Eta[1]);
         htOfjets->Fill(Ht);
-      
-        }
+        //}
       }
     }
   }
