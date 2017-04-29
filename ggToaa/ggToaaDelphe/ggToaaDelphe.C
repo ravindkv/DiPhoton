@@ -28,8 +28,10 @@ void ggToaaDelphe::Loop_Delphe()
   cout << "============================="<<endl;
   
   ofstream fileMgg;
+  //C-cut: 2.5
+  fileMgg.open("Mgg_C0p5_ggToaaDelphe_100K_PY8.dat");
   //cut-0
-  fileMgg.open("Mgg_cut0_ggToaaDelphe_100K_PY8.dat");
+  //fileMgg.open("Mgg_cut0_ggToaaDelphe_100K_PY8.dat");
   //cut-1
   //fileMgg.open("Mgg_cut1_ggToaaDelphe_100K_PY8.dat");
   //cut-2
@@ -73,7 +75,8 @@ void ggToaaDelphe::Loop_Delphe()
       Float_t Pz2 = Photon_PT[1]* sinh(Photon_Eta[1]);
       Float_t cutC = sqrt(pow(Px1+Px2, 2)+pow(Py1+Py2, 2)+pow(Pz1+Pz2, 2));
 
-      if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
+      if(cutC <= 0.5*Mgg && Mgg >= 200){    
+      //if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
         //cut-1
         //if(cutC <= 2.0*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=200){    
         //cut-2

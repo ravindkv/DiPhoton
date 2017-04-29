@@ -34,11 +34,14 @@ void ppggToaaDelphe()
   const char *title = "Delphe: ATLAS + Cut-3 , gg>aa[100K] + pp>aa[4000K]";
   ifstream ggToaaAllCut("Mgg_cut3_ggToaaDelphe_100K_PY8.dat");
   ifstream ppToaaAllCut("Mgg_cut3_ppToaaDelphe_4000K_PY6Q.dat");
-  */ 
   
   const char *title = "Delphe: ATLAS + Cut-4 , gg>aa[100K] + pp>aa[4000K]";
   ifstream ggToaaAllCut("Mgg_cut4_ggToaaDelphe_100K_PY8.dat");
   ifstream ppToaaAllCut("Mgg_cut4_ppToaaDelphe_4000K_PY6Q.dat");
+  */ 
+  const char *title = "Delphe: Mgg>200, Ccut = 1.5 , gg>aa[100K] + pp>aa[4000K]";
+  ifstream ggToaaAllCut("Mgg_C1p5_ggToaaDelphe_100K_PY8.dat");
+  ifstream ppToaaAllCut("Mgg_C1p5_ppToaaDelphe_4000K_PY6Q.dat");
  /*
   */
   // Create histo of Mgg, for gg
@@ -50,7 +53,9 @@ void ppggToaaDelphe()
   float ggMgg;
   while(true){
     ggToaaAllCut >> ggMgg; 
+    //if(ggMgg<=300 || ggMgg>=400){
     hgg->Fill(ggMgg);
+   // }
     //cout<<ggPt1<<"\t"<<ggMgg<<"\t"<<ggPt2<<endl;
     if( ggToaaAllCut.eof() ) break;
     NggToaaAllCut ++;
@@ -65,7 +70,9 @@ void ppggToaaDelphe()
   float ppMgg;
   while(true){
     ppToaaAllCut >>ppMgg; 
+    if(ppMgg<=300 && ppMgg>=400){
     hpp->Fill(ppMgg);
+    }
     //cout<<ppPt1<<"\t"<<ppMgg<<"\t"<<ppPt2<<endl;
     if( ppToaaAllCut.eof() ) break;
     NppToaaAllCut ++;
