@@ -23,8 +23,12 @@ void ppToaaDelphe::Loop_Delphe()
   Long64_t nentries = fChain->GetEntriesFast();
   
   ofstream fileMgg;
-  //C-cut: 2.5
-  fileMgg.open("Mgg_C2p5_ppToaaDelphe_4000K_PY6Q.dat");
+  //Pt cut, C-cut: 1.5
+  fileMgg.open("Mgg_Pt25_C1p5_ppToaaDelphe_4000K_PY6Q.dat");
+  ///fileMgg.open("Mgg_Pt50_C1p5_ppToaaDelphe_4000K_PY6Q.dat");
+  ///fileMgg.open("Mgg_Pt75_C1p5_ppToaaDelphe_4000K_PY6Q.dat");
+  ///fileMgg.open("Mgg_Pt100_C1p5_ppToaaDelphe_4000K_PY6Q.dat");
+  
   //cut-0
   //fileMgg.open("Mgg_cut0_ppToaaDelphe_4000K_PY6Q.dat");
   //cut-1
@@ -72,9 +76,14 @@ void ppToaaDelphe::Loop_Delphe()
       Float_t Pz2 = Photon_PT[1]* sinh(Photon_Eta[1]);
       Float_t cutC = sqrt(pow(Px1+Px2, 2)+pow(Py1+Py2, 2)+pow(Pz1+Pz2, 2));
      
-        //Ht-Cut
+      //Pt-Cut
+      if(Jet_PT[0]>=25) continue;
+      ///if(Jet_PT[0]>=50) continue;
+      ///if(Jet_PT[0]>=75) continue;
+      ///if(Jet_PT[0]>=100) continue;
+      
       //if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
-      if(cutC <= 2.5*Mgg && Mgg >= 200){    
+      if(cutC <= 1.5*Mgg && Mgg >= 200){    
         //cut-0
         //if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
         //cut-1
@@ -142,7 +151,7 @@ void ppToaaDelphe::Loop_Delphe()
   // create the TGraphErrors and draw it
   plotBinErrors = new TGraphErrors(binN,binCenter,binContent,
   					binCenterErr,binContentErr);
-  plotBinErrors->SetTitle("Delphe: p p -> a a [QCD], 1000K");
+  plotBinErrors->SetTitle("Delphe: p p -> a a [QCD], 4000K");
   plotBinErrors->GetYaxis()->SetTitle("Events/40GeV");
   plotBinErrors->SetMarkerColor(1);
   plotBinErrors->SetMarkerStyle(20);

@@ -23,13 +23,14 @@ void ggToaaDelphe::Loop_Delphe()
   TH1F* h = new TH1F("Histo"," g g -> a a [100K], ATLAS cuts ", binN, xmin,xmax);
   
   Long64_t nentries = fChain->GetEntriesFast();
-  cout << "============================="<<endl;
-  cout << "  Total Events =  " << nentries <<endl;
-  cout << "============================="<<endl;
   
   ofstream fileMgg;
   //C-cut: 2.5
-  fileMgg.open("Mgg_C0p5_ggToaaDelphe_100K_PY8.dat");
+  ///fileMgg.open("Mgg_Pt25_C1p5_ggToaaDelphe_100K_PY8.dat");
+  ///fileMgg.open("Mgg_Pt50_C1p5_ggToaaDelphe_100K_PY8.dat");
+  ///fileMgg.open("Mgg_Pt75_C1p5_ggToaaDelphe_100K_PY8.dat");
+  ///fileMgg.open("Mgg_Pt100_C1p5_ggToaaDelphe_100K_PY8.dat");
+  fileMgg.open("stat_ggToaaDelphe_100K_PY8.dat");
   //cut-0
   //fileMgg.open("Mgg_cut0_ggToaaDelphe_100K_PY8.dat");
   //cut-1
@@ -44,7 +45,7 @@ void ggToaaDelphe::Loop_Delphe()
   TH1F* etaPhot1 = new TH1F("gg: etaphot1", "eta of first photon", 100, -3, +3);
   TH1F* etaPhot2 = new TH1F("gg: etaphot2", "eta of second photon", 100, -3, +3);
   TH1F* htOfjets = new TH1F("gg: htOfjets", "sum of transverse pt of jets", 100, 0, 500);
-  
+  fileMgg<<"Mgg"<<setw(10)<<"C-cut"<<setw(10)<<"Jet_pt"<<setw(10)<<"Phot1_pt"<<setw(10)<<"Phot2_pt"<<endl;
   //Loop over number of events (nentries)   
   for (Long64_t nentry=0; nentry<nentries; nentry++) 
   {
@@ -66,6 +67,8 @@ void ggToaaDelphe::Loop_Delphe()
         Ht = Ht+ Jet_PT[j];
         //cout<<"Ht = "<<Ht<<endl;
       }
+      //the highest Pt jet must have Pt greater than 25
+      //if(Jet_PT[0]>=50) continue;
       //C-cut
       Float_t Px1 = Photon_PT[0]* cos(Photon_Phi[0]);
       Float_t Py1 = Photon_PT[0]* sin(Photon_Phi[0]);
@@ -74,8 +77,13 @@ void ggToaaDelphe::Loop_Delphe()
       Float_t Py2 = Photon_PT[1]* sin(Photon_Phi[1]);
       Float_t Pz2 = Photon_PT[1]* sinh(Photon_Eta[1]);
       Float_t cutC = sqrt(pow(Px1+Px2, 2)+pow(Py1+Py2, 2)+pow(Pz1+Pz2, 2));
-
-      if(cutC <= 0.5*Mgg && Mgg >= 200){    
+      fileMgg<<Mgg<<setw(10)<<cutC<<setw(10)<<Jet_PT[0]<<setw(10)<<Photon_PT[0]<<setw(10)<<Photon_PT[1]<<endl;
+      //if(Jet_PT[0]>=25) continue;
+      ///if(Jet_PT[0]>=50) continue;
+       ///if(Jet_PT[0]>=75) continue;
+      ///if(Jet_PT[0]>=100) continue;
+      //if(cutC <= 1.5*Mgg && Mgg >= 200){    
+      if(Mgg >= 200){    
       //if(Photon_PT[0] >= 0.4*Mgg && Photon_PT[1] >= 0.3*Mgg && Mgg >= 200){    
         //cut-1
         //if(cutC <= 2.0*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=200){    
@@ -86,7 +94,7 @@ void ggToaaDelphe::Loop_Delphe()
         //cut-4
         //if(cutC <= 0.5*Mgg && Photon_Eta[0]<=0.75 && Photon_Eta[1]<=0.75 &&Ht<=100){    
         h->Fill(Mgg); // Create a histogram of Mgg
-        fileMgg<<Mgg<<"\n";
+        //fileMgg<<Mgg<<"\n";
         etaPhot1->Fill(Photon_Eta[0]);
         etaPhot2->Fill(Photon_Eta[1]);
         htOfjets->Fill(Ht);
@@ -104,6 +112,9 @@ void ggToaaDelphe::Loop_Delphe()
   c1->cd(3);
   htOfjets->Draw();
   fileMgg.close();
+  cout << "============================="<<endl;
+  cout << "  Total Events =  " << nentries <<endl;
+  
   //////////////////////////////////////////////////////////// 
   //
   // Section - 2 : Read the binCenter & binContent of histo //

@@ -39,9 +39,9 @@ void ppggToaaDelphe()
   ifstream ggToaaAllCut("Mgg_cut4_ggToaaDelphe_100K_PY8.dat");
   ifstream ppToaaAllCut("Mgg_cut4_ppToaaDelphe_4000K_PY6Q.dat");
   */ 
-  const char *title = "Delphe: Mgg>200, Ccut = 1.5 , gg>aa[100K] + pp>aa[4000K]";
-  ifstream ggToaaAllCut("Mgg_C1p5_ggToaaDelphe_100K_PY8.dat");
-  ifstream ppToaaAllCut("Mgg_C1p5_ppToaaDelphe_4000K_PY6Q.dat");
+  const char *title = "Delphe: Mgg>200, Jet Pt< 25, Ccut= 1.5, gg>aa[QCD] + pp>aa[QCD]";
+  ifstream ggToaaAllCut("Mgg_Pt25_C1p5_ggToaaDelphe_100K_PY8.dat");
+  ifstream ppToaaAllCut("Mgg_Pt25_C1p5_ppToaaDelphe_4000K_PY6Q.dat");
  /*
   */
   // Create histo of Mgg, for gg
@@ -53,9 +53,9 @@ void ppggToaaDelphe()
   float ggMgg;
   while(true){
     ggToaaAllCut >> ggMgg; 
-    //if(ggMgg<=300 || ggMgg>=400){
+    //if(ggMgg<=280 || ggMgg>=400){
     hgg->Fill(ggMgg);
-   // }
+    //}
     //cout<<ggPt1<<"\t"<<ggMgg<<"\t"<<ggPt2<<endl;
     if( ggToaaAllCut.eof() ) break;
     NggToaaAllCut ++;
@@ -70,16 +70,15 @@ void ppggToaaDelphe()
   float ppMgg;
   while(true){
     ppToaaAllCut >>ppMgg; 
-    if(ppMgg<=300 && ppMgg>=400){
-    hpp->Fill(ppMgg);
-    }
+    ///if(ppMgg<=280 || ppMgg>=400){
+      hpp->Fill(ppMgg);
+    ///}
     //cout<<ppPt1<<"\t"<<ppMgg<<"\t"<<ppPt2<<endl;
     if( ppToaaAllCut.eof() ) break;
     NppToaaAllCut ++;
   }
   
   //Draw the histograms
-  /*
   TCanvas* c1 = new TCanvas("c1","diphoton spectrum ");
   c1->Divide(2,1);
   c1->cd(1);
@@ -90,7 +89,7 @@ void ppggToaaDelphe()
   hpp->Draw();
   //hpp->GetYaxis()->SetTitle("Events/40GeV");
   hpp->GetXaxis()->SetTitle("M_{gg} (GeV)");
-  */
+  
   //////////////////////////////////////////////////////////// 
   //                                                        //
   // Section - 2 : Combine events from the both histograms //
@@ -124,6 +123,7 @@ void ppggToaaDelphe()
   	binCenter[j] = ppXaxis->GetBinCenter(j+1);
   	binCenterErr[j] = 0*sqrt(binCenter[j]); 
     binContent[j] = (float)hpp->GetBinContent(j+1) + (float)hgg->GetBinContent(j+1)*((float)SggToaaAllCut/(float)SppToaaAllCut)*((float)NppToaaAllCut/(float)NggToaaAllCut);
+    binContentErr[j] = sqrt(binContent[j]); 
     binContentErr[j] = sqrt(binContent[j]); 
   }
 
