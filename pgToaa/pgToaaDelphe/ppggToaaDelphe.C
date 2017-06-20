@@ -16,34 +16,43 @@ void ppggToaaDelphe()
   // Section - 1 : create histograms for pp and gg process  //
   //                                                        // 
   ////////////////////////////////////////////////////////////
- 
-  // No cut: Mgg >= 200
- /*
-  const char *title = "Delphe: ATLAS , gg>aa[100K] + pp>aa[4000K]";
-  ifstream ggToaaAllCut("Mgg_cut0_ggToaaDelphe_100K_PY8.dat");
-  ifstream ppToaaAllCut("Mgg_cut0_ppToaaDelphe_4000K_PY6Q.dat");
+/* 
+
+  const char *title = "Delphe, gg>aa[200K]+ pp>aa[8000K], cut-1: Only ATLAS cuts";
+  ifstream ggToaaAllCut("Mgg_cut1_ATLAS_ggToaaDelphe_200K_PY8.dat");
+  ifstream ppToaaAllCut("Mgg_cut1_ATLAS_ppToaaDelphe_8000K_PY8.dat");
+*/
   
-  const char *title = "Delphe: ATLAS + Cut-1 , gg>aa[100K] + pp>aa[4000K]";
-  ifstream ggToaaAllCut("Mgg_cut1_ggToaaDelphe_100K_PY8.dat");
-  ifstream ppToaaAllCut("Mgg_cut1_ppToaaDelphe_4000K_PY6Q.dat");
+ /* 
+  const char *title = "Delphe, gg>aa[200K]+ pp>aa[8000K], cut-2: ATLAS cuts+ Events with a g-leading-jet";
+  ifstream ggToaaAllCut("Mgg_cut2_gjet_ggToaaDelphe_200K_PY8.dat");
+  ifstream ppToaaAllCut("Mgg_cut2_gjet_ppToaaDelphe_8000K_PY8.dat");
   
-  const char *title = "Delphe: ATLAS + Cut-2 , gg>aa[100K] + pp>aa[4000K]";
-  ifstream ggToaaAllCut("Mgg_cut2_ggToaaDelphe_100K_PY8.dat");
-  ifstream ppToaaAllCut("Mgg_cut2_ppToaaDelphe_4000K_PY6Q.dat");
+  const char *title = "Delphe, gg>aa[200K]+ pp>aa[8000K], cut-3: ATLAS cuts+ ( |eta_1| <= 1 && |eta_2| <= 1 ) ";
+  ifstream ggToaaAllCut("Mgg_cut3_eta_ggToaaDelphe_200K_PY8.dat");
+  ifstream ppToaaAllCut("Mgg_cut3_eta_ppToaaDelphe_8000K_PY8.dat");
   
-  const char *title = "Delphe: ATLAS + Cut-3 , gg>aa[100K] + pp>aa[4000K]";
-  ifstream ggToaaAllCut("Mgg_cut3_ggToaaDelphe_100K_PY8.dat");
-  ifstream ppToaaAllCut("Mgg_cut3_ppToaaDelphe_4000K_PY6Q.dat");
+  const char *title = "Delphe, gg>aa[200K]+ pp>aa[8000K], cut-4: ATLAS cuts+ C < 1 ";
+  ifstream ggToaaAllCut("Mgg_cut4_C1_ggToaaDelphe_200K_PY8.dat");
+  ifstream ppToaaAllCut("Mgg_cut4_C1_ppToaaDelphe_8000K_PY8.dat");
   
-  const char *title = "Delphe: ATLAS + Cut-4 , gg>aa[100K] + pp>aa[4000K]";
-  ifstream ggToaaAllCut("Mgg_cut4_ggToaaDelphe_100K_PY8.dat");
-  ifstream ppToaaAllCut("Mgg_cut4_ppToaaDelphe_4000K_PY6Q.dat");
-  */ 
-  const char *title = "Delphe: Mgg>200, Jet Pt< 25, Ccut= 1.5, gg>aa[QCD] + pp>aa[QCD]";
-  ifstream ggToaaAllCut("Mgg_Pt25_C1p5_ggToaaDelphe_100K_PY8.dat");
-  ifstream ppToaaAllCut("Mgg_Pt25_C1p5_ppToaaDelphe_4000K_PY6Q.dat");
- /*
+  const char *title = "Delphe, gg>aa[200K]+ pp>aa[8000K], cut-5: ATLAS cuts+ delta_R(photons) > 3.2 ";
+  ifstream ggToaaAllCut("Mgg_cut5_dR3p2_ggToaaDelphe_200K_PY8.dat");
+  ifstream ppToaaAllCut("Mgg_cut5_dR3p2_ppToaaDelphe_8000K_PY8.dat");
+  
+  const char *title = "Delphe, gg>aa[200K]+ pp>aa[8000K], cut-6: ATLAS cuts+ Events with a g-leading-jet + ( |eta_1| <= 1 && |eta_2| <= 1 )+  C < 1 + delta_R(photons) > 3.2 ";
+  ifstream ggToaaAllCut("Mgg_cut6_ggToaaDelphe_200K_PY8.dat");
+  ifstream ppToaaAllCut("Mgg_cut6_ppToaaDelphe_8000K_PY8.dat");
+  
+  const char *title = "Delphe, gg>aa[200K]+ pp>aa[8000K], cut-7: ATLAS cuts+ Events with a g-leading-jet + C < 1 + delta_R(photons) > 3.2";
+  ifstream ggToaaAllCut("Mgg_cut7_ggToaaDelphe_200K_PY8.dat");
+  ifstream ppToaaAllCut("Mgg_cut7_ppToaaDelphe_8000K_PY8.dat");
   */
+  
+  const char *title = "Delphe, gg>aa[200K]+ pp>aa[8000K], cut-8: ATLAS cuts+ leading and subleading g jets";
+  ifstream ggToaaAllCut("Mgg_cut8_2gjet_ggToaaDelphe_200K_PY8.dat");
+  ifstream ppToaaAllCut("Mgg_cut8_2gjet_ppToaaDelphe_8000K_PY8.dat");
+  
   // Create histo of Mgg, for gg
   const int binN = 20;
   int xmin = 200;
@@ -60,7 +69,6 @@ void ppggToaaDelphe()
     if( ggToaaAllCut.eof() ) break;
     NggToaaAllCut ++;
   }
-
   // Create histo of Mgg, for pp
   const int binN = 20;
   int xmin = 200;
@@ -97,12 +105,12 @@ void ppggToaaDelphe()
   ////////////////////////////////////////////////////////////
   
   //Get the statistics from gg and pp
-  int NppToaa = 4000000;
-  float SppToaa = 102.96;
-  int NppToaaPythia =  3999622;
+  int NppToaa = 8000000;
+  float SppToaa = 1.53*102.96;
+  int NppToaaPythia =  8000000;
   float SppToaaPythia = SppToaa*NppToaaPythia/NppToaa;
-  int NggToaa = 100000;
-  float SggToaa = 0.271;
+  int NggToaa = 200000;
+  float SggToaa = 1.15*0.271;
   cout <<"Total gg events = "<<NggToaaAllCut<<endl;
   cout <<"Total pp events = "<<NppToaaAllCut<<endl;
   float SppToaaAllCut = SppToaaPythia * NppToaaAllCut/NppToaaPythia;
@@ -117,12 +125,15 @@ void ppggToaaDelphe()
   Float_t binContentErr[binN] = {};
   
   TAxis * ppXaxis = hpp->GetXaxis();
+  cout<<"gg"<<setw(20)<<"pp"<<setw(20)<<"pp+gg"<<endl;
   for(int j = 0; j < binN; j++)
   {
   	//Note, the bin starts form 1 
   	binCenter[j] = ppXaxis->GetBinCenter(j+1);
-  	binCenterErr[j] = 0*sqrt(binCenter[j]); 
+  	binCenterErr[j] = 0*sqrt(binCenter[j]);
+    //binContent[j] = (float)hgg->GetBinContent(j+1)*((float)SggToaaAllCut/(float)SppToaaAllCut)*((float)NppToaaAllCut/(float)NggToaaAllCut);
     binContent[j] = (float)hpp->GetBinContent(j+1) + (float)hgg->GetBinContent(j+1)*((float)SggToaaAllCut/(float)SppToaaAllCut)*((float)NppToaaAllCut/(float)NggToaaAllCut);
+    cout<<hgg->GetBinContent(j+1)<<setw(20)<<hpp->GetBinContent(j+1)<<setw(20)<<binContent[j]<<endl;
     binContentErr[j] = sqrt(binContent[j]); 
     binContentErr[j] = sqrt(binContent[j]); 
   }
@@ -149,44 +160,81 @@ void ppggToaaDelphe()
   //
   ////////////////////////////////////////////////////////////
   
-  
+  // ATLAS Fit 
   Float_t s = 13000*13000;
   TF1 *fitATLAS = new TF1("fit", "pow(1-pow(x/13000,1/3),[1])*pow(x/13000,[0])");
-
   cout<<endl;
   cout<<"================================"<<endl;
   plotBinErrors->Fit(fitATLAS);
-  
   //Fitted parameteres are a0 = p0, b = p1
   float a0 = fitATLAS->GetParameter(0);
   float b = fitATLAS->GetParameter(1);
-
   cout<< "a0 = "<<a0<<","<<setw(5)<<"b ="<<b<<endl;
   cout<<endl;
   cout<<"================================"<<endl;
-
+  
+  Float_t binContentFit[binN] = {};
+  Float_t binContentDiff[binN] = {};
+  Float_t binContentDiffErr[binN] = {};
+  cout<<"binCenter"<<setw(15)<<"binContent"<<setw(10)<<"Fit"
+  <<setw(10)<<"Diff"<<setw(15)<<"DiffError"<<endl;
+ 
+  //Evaluating fitted line at each binCenter	
+  for(j = 0; j < binN; j++){
+  binContentFit[j] = pow((1- pow(binCenter[j]/13000, 1/3.0)) ,b)*pow(binCenter[j]/13000, a0);
+  //Difference between Data and the fitted background
+  binContentDiff[j] =  binContent[j] - binContentFit[j];
+  binContentDiffErr[j] = sqrt(binContent[j]);
+  //binContentDiffErr[j] = sqrt(binContent[j] + binContentFit[j]);
+  cout<<binCenter[j]<<setw(15)<<binContent[j]<<setw(20)<<
+  binContentFit[j]<<setw(10)<<binContentDiff[j]<<
+  setw(10)<<binContentDiffErr[j]<<endl;
+  }	
+  double chi2 = 0.0;
+  for(j = 0; j < 5; j++){
+    chi2 = chi2 + pow((binContent[j] - binContentFit[j]),2)/binContent[j];
+  }
+  cout<<"chi2 = "<<chi2<<endl;
+/*
+  // Gaussian Fit 
+  Float_t s = 13000*13000;
+  //fit with Gaussian --------- 
+  TF1 *fitATLAS = new TF1("fit", "[0]*exp(-pow((x-200), 2)/pow([1], 2))");// - [2]*exp(-pow((x-300), 2)/pow([3], 2))" );
+  //TF1 *fitATLAS = new TF1("fit", "exp(-pow((x-200)/[1], 2))");// - [2]*exp(-pow((x-300), 2)/pow([3], 2))" );
+  cout<<endl;
+  cout<<"================================"<<endl;
+  plotBinErrors->Fit(fitATLAS);
+  float a = fitATLAS->GetParameter(0);
+  float b = fitATLAS->GetParameter(1);
+  float c = fitATLAS->GetParameter(2);
+  float d = fitATLAS->GetParameter(3);
+  cout<< "a= "<<a<<setw(5)<<"b= "<<b<<setw(5)<<"c= "<<c<<setw(5)<<"d= "<<d<<endl;
+  cout<<endl;
+  cout<<"================================"<<endl;
   Float_t binContentFit[binN] = {};
   Float_t binContentDiff[binN] = {};
   Float_t binContentDiffErr[binN] = {};
   
   cout<<"binCenter"<<setw(15)<<"binContent"<<setw(10)<<"Fit"
   <<setw(10)<<"Diff"<<setw(15)<<"DiffError"<<endl;
-
+  double chi2 = 0.0;
   //Evaluating fitted line at each binCenter	
   for(j = 0; j < binN; j++)
   {
-  binContentFit[j] = pow((1- pow(binCenter[j]/13000, 1/3.0)) ,b)
-  										*pow(binCenter[j]/13000, a0);
+  double x = binCenter[j]/13000.0;
+  binContentFit[j] = a*exp(-pow((x-200)/b, 2) - c*exp(-pow((x-300)/d, 2));
+  //binContentFit[j] = a*exp(-pow((x-200)/b, 2));
   //Difference between Data and the fitted background
   binContentDiff[j] =  binContent[j] - binContentFit[j];
   binContentDiffErr[j] = sqrt(binContent[j]);
-
+  chi2 = chi2 + pow((binContent[j] - binContentFit[j]),2)/binContent[j];
   cout<<binCenter[j]<<setw(15)<<binContent[j]<<setw(20)<<
   binContentFit[j]<<setw(10)<<binContentDiff[j]<<
   setw(10)<<binContentDiffErr[j]<<endl;
   }	
+  cout<<"chi2 = "<<chi2<<endl;
+ */
 
-  
   //////////////////////////////////////////////////////////// 
   //
   // Section - 4 : Plotting Data - Fitted background        //
